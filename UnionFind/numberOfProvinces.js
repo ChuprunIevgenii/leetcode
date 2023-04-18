@@ -7,25 +7,30 @@
 // Input: isConnected = [[1,0,0,1],[0,1,1,0],[0,1,1,1],[1,0,1,1]]
 // Output: 2
 
-function findCircleNum(arr) {
-    if(1 > arr.length > 200) return;
-    const connections =  new Array(arr.length).fill(-1);
-    let numberOfConnectsions = connections.length;
-    for(let i = 0; i < arr.length; i++) {
+function findCircleNum(isConnected) {
+    if(1 > isConnected.length > 200) return;
+    const connections =  new Array(isConnected.length).fill(-1);
+    let numberOfComponents = connections.length;
+    
+    for(let i = 0; i < isConnected.length; i++) {
         const element = arr[i];
 
-        for(j = 0; j < element.length; j++) {
+        for(j = i + 1; j < element.length; j++) {
             
-            if(j !== i && element[j] && !isConnected(i, j)) {
+            if(isConnected[i][j] === 1) {
                 const rootI = find(i);
                 const rootJ = find(j);
-                union(rootI, rootJ);
-                numberOfConnectsions--;
+                if(rootI !== rootJ) {
+                    union(rootI, rootJ);
+                    numberOfComponents--;
+                }  
             }
         } 
     }
     function union(x, y) {
-        if(Math.abs(connections[x]) > Math.abs(connections[y])) {
+        if(connections[x] < -1 && connections[y] < -1 && 
+            Math.abs(connections[x]) > Math.abs(connections[y])
+        ) {
             connections[y] = x;
             connections[x] -= 1;
         } else {
@@ -39,12 +44,15 @@ function findCircleNum(arr) {
         while(connections[foundIndex] > -1) {
             foundIndex = connections[foundIndex];
         }
-        
+
+        if(connections[x] > -1 && connections[x] !== foundIndex) {
+            connections[x] = foundIndex;
+        }
+
         return foundIndex;
     }
     
-    function isConnected(x, y) {
-        return find(x) === find(y);
-    }
-    return numberOfConnectsions;
+    return numberOfComponents;
 };
+
+console.log(findCircleNum([[1,0,0,1],[0,1,1,0],[0,1,1,1],[1,0,1,1]]))
