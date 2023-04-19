@@ -13,7 +13,7 @@ function findCircleNum(isConnected) {
     let numberOfComponents = connections.length;
     
     for(let i = 0; i < isConnected.length; i++) {
-        const element = arr[i];
+        const element = isConnected[i];
 
         for(j = i + 1; j < element.length; j++) {
             
@@ -28,14 +28,15 @@ function findCircleNum(isConnected) {
         } 
     }
     function union(x, y) {
-        if(connections[x] < -1 && connections[y] < -1 && 
-            Math.abs(connections[x]) > Math.abs(connections[y])
-        ) {
-            connections[y] = x;
-            connections[x] -= 1;
+        const rootX = find(x);
+        const rootY = find(y);
+        
+        if(connections[rootX] < connections[rootY]) {
+            connections[rootY] = rootX;
+            connections[rootX] -= 1;
         } else {
-            connections[x] = y;
-            connections[y] -= 1;
+            connections[rootX] = rootY;
+            connections[rootY] -= 1;
         }
     }
     function find(x){
@@ -45,7 +46,7 @@ function findCircleNum(isConnected) {
             foundIndex = connections[foundIndex];
         }
 
-        if(connections[x] > -1 && connections[x] !== foundIndex) {
+        if(connections[x] > -1) {
             connections[x] = foundIndex;
         }
 
@@ -54,5 +55,3 @@ function findCircleNum(isConnected) {
     
     return numberOfComponents;
 };
-
-console.log(findCircleNum([[1,0,0,1],[0,1,1,0],[0,1,1,1],[1,0,1,1]]))
