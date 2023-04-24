@@ -14,7 +14,7 @@ function removeStones(stones) {
 
     for(let i = 0; i < stones.length; i++) {
         for(let j = i + 1; j < stones.length; j++) {
-            if((stones[i][0] === stones[j][0] || stones[i][1] === stones[j][1]) && UF.isConnected(i, j)) {
+            if((stones[i][0] === stones[j][0] || stones[i][1] === stones[j][1]) && !UF.isConnected(i, j)) {
                 UF.union(i, j);
                 countComponents--;
             }
@@ -56,3 +56,4 @@ class UnionFind {
         return this.find(x) === this.find(y);
     }
 }
+
