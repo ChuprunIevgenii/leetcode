@@ -34,3 +34,25 @@ function removeOuterParentheses(s) {
 
     return next;
 };
+
+//code without stack with better perfomance
+function removeOuterParenthese1(S) {
+    let parenthesCount = 0;
+    let result = "";
+    
+    for (const letter of S) {
+        if (letter === "(") {
+            if (parenthesCount) {
+                result += letter;
+            }
+            parenthesCount++;
+        } else {
+            parenthesCount--;
+            if (parenthesCount) {
+                result += letter;
+            }
+        }
+    }
+    
+    return result;
+};
