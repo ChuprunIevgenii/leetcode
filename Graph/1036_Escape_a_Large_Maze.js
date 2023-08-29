@@ -59,8 +59,7 @@ function isEscapePossible(blocked, source, target) {
                 if(nC < MIN || nC >= MAX) continue;
                 
                 const cell = `${nR}-${nC}`;
-                console.log(cell);
-                console.log(visited, blockers);
+
                 if(visited.has(cell) || blockers.has(cell)) continue;
     
                 qR.push(nR);
