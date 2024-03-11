@@ -45,8 +45,6 @@ function findDisappearedNumbers(nums) {
         if(nums[r2i] > 0) nums[r2i] = -Math.abs(nums[r2i]);
     }
 
-    console.log(nums);
-
     for(let i = 0; i < nums.length; i++) {
         if(nums[i] > 0) result.push(i + 1);
     }
@@ -54,5 +52,3 @@ function findDisappearedNumbers(nums) {
     return result;
 
 };
-
-console.log(findDisappearedNumbers([4,3,2,7,8,2,3,1]));
