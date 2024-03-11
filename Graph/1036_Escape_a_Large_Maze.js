@@ -47,10 +47,9 @@ function isEscapePossible(blocked, source, target) {
             if(tR === cR && tC === cC) return true;
     
             if ((Math.abs(sR - cR) + Math.abs(sC - cC)) > LIMIT) {
-                console.log('BOOM')
                 return true;
-          
             } 
+            
             for(let i = 0; i < 4; i++) {
                 const nR = cR + dR[i];
                 const nC = cC + dC[i];
