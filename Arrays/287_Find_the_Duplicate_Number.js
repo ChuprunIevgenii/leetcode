@@ -34,25 +34,15 @@ function findDuplicate(nums) {
     do {
         hare = nums[nums[hare]];
         tortise = nums[tortise];
-        console.log(hare, 'hare');
     } while (hare !== tortise)
 
-
     tortise = 0;
-
-    console.log('MID:', tortise, hare)
-
 
     while(hare !== tortise) {
         hare = nums[hare];
         tortise = nums[tortise];
     }
 
-    console.log(hare, tortise)
-
     return tortise;
 
 };
-
-
-console.log("FInal", findDuplicate([1,3,4,2,2]));
