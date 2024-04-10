@@ -29,7 +29,7 @@ function exist(board, word) {
     const left = 0;
     const right = board[0].length - 1;
     const bottom = board.length - 1;
-
+    
     for (let row = 0; row < board.length; row++) {
         for(let column = 0; column < board[0].length; column++) {
             if(dfs(row, column)) return true;
@@ -39,8 +39,22 @@ function exist(board, word) {
     return false;
 
     function dfs(row, column, index = 0) {
-        if(index === word.length - 1) return true;
-        if()        
+        if(
+            row < top || 
+            row > bottom || 
+            column < left || 
+            column > right || 
+            board[row][column] !== word[index] || 
+            (visited[row] &&  visited[row][column])
+        ) return false;
+
+        index++;
+
+        dfs(row - 1, column, index);
+        dfs(row + 1, column, index);
+        dfs(row, column - 1, index);
+        dfs(row, column + 1, index);
+        
     }
 };
 
