@@ -29,7 +29,8 @@ function exist(board, word) {
     const left = 0;
     const right = board[0].length - 1;
     const bottom = board.length - 1;
-    
+
+
     for (let row = 0; row < board.length; row++) {
         for(let column = 0; column < board[0].length; column++) {
             if(dfs(row, column)) return true;
@@ -38,27 +39,31 @@ function exist(board, word) {
 
     return false;
 
-    function dfs(row, column, index = 0) {
+    function dfs(row, column, index = 0, visited = {}) {
+
         if(
             row < top || 
             row > bottom || 
             column < left || 
             column > right || 
             board[row][column] !== word[index] || 
-            (visited[row] &&  visited[row][column])
+            (visited[row] && visited[row][column])
         ) return false;
 
+        if(index === word.length - 1 &&  board[row] && board[row][column] === word[index]) {
+            return true;
+        }
+        
+        console.log(visited, index);
+        visited[row] = visited[row] || {};
+        visited[row][column] = true;
         index++;
 
-        dfs(row - 1, column, index);
-        dfs(row + 1, column, index);
-        dfs(row, column - 1, index);
-        dfs(row, column + 1, index);
+        const result = dfs(row - 1, column, index, visited) || dfs(row + 1, column, index, visited) || dfs(row, column - 1, index, visited) || dfs(row, column + 1, index, visited);
         
+        visited[row][column] = false;
+
+        return result;
+  
     }
 };
-
-let board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]];
-let word = "ABCCED";
-
-console.log(exist(board, word));
